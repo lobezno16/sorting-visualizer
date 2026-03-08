@@ -297,7 +297,8 @@ export function ComparisonGrid() {
     // Determine the max number of steps across all algorithms
     const maxSteps = Math.max(...allResults.map((r) => r.operations.length));
 
-    // Steps per tick: process multiple operations per frame for large arrays
+    // Steps per tick: scale aggressively so animation finishes in ~3-4 seconds
+    // For 500-element Bubble Sort (~125k ops), this gives ~625 ops/tick → ~200 frames
     const opsPerTick = Math.max(1, Math.floor(maxSteps / 200));
 
     let tick = 0;
@@ -451,8 +452,8 @@ export function ComparisonGrid() {
                   value={[compSize]}
                   onValueChange={([v]) => setCompSize(v)}
                   min={8}
-                  max={128}
-                  step={4}
+                  max={500}
+                  step={10}
                   disabled={running}
                   className="flex-1"
                   aria-label="Comparison array size"
