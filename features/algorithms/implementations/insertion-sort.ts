@@ -32,7 +32,12 @@ export function insertionSort(
       push({
         type: "compare",
         i: j,
-        j: i,
+        // Bug 5 fix: use j+1, not i.
+        // After the first overwrite, array[i] holds a shifted copy — no longer
+        // the key. Position j+1 always holds either the key (first iteration)
+        // or the most-recently-shifted value, which is the correct right-hand
+        // comparand to highlight.
+        j: j + 1,
         message: "Comparing with sorted region",
       });
 

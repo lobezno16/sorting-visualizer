@@ -28,8 +28,8 @@ export function VisualizerPanel() {
       viewport={{ once: true, margin: "-100px" }}
       className="scroll-mt-24"
     >
-      <Card className="bg-card/30 border-border/50 backdrop-blur-xl overflow-hidden">
-        <CardHeader className="space-y-4">
+      <Card className="bg-card/40 border-primary/30 backdrop-blur-2xl overflow-hidden shadow-[0_0_30px_-10px_rgba(180,90,255,0.2)]">
+        <CardHeader className="space-y-4 border-b border-border/30 bg-background/20">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-4">
               <h2 className="text-xl font-semibold">Sorting Lab</h2>
@@ -47,8 +47,9 @@ export function VisualizerPanel() {
           <ArrayControls />
           <ControlDock />
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="rounded-lg bg-background/50 border border-border/30 p-4 min-h-[300px]">
+        <CardContent className="space-y-6 pt-6">
+          <div className="relative rounded-lg bg-black/40 border border-primary/20 p-4 min-h-[300px] shadow-inner overflow-hidden">
+            <div className="absolute inset-0 bg-dot-cyber opacity-20 pointer-events-none" />
             <SortingBars />
           </div>
           <LiveStatsDashboard />

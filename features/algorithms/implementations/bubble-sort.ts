@@ -15,6 +15,10 @@ export function bubbleSort(
   };
 
   const n = array.length;
+
+  // Bug 4 fix: track whether we exited early so we only mark index 0 once.
+  let didBreak = false;
+
   for (let i = 0; i < n - 1; i++) {
     let swapped = false;
     for (let j = 0; j < n - i - 1; j++) {
@@ -43,11 +47,22 @@ export function bubbleSort(
       index: n - 1 - i,
       message: "Largest of pass in place",
     });
-    if (!swapped) break;
+
+    if (!swapped) {
+      // Bug 4 fix: on early exit, mark the remaining unsorted-region elements
+      // (0 .. n-2-i) that the no-swap pass confirmed are already in place.
+      for (let k = 0; k < n - 1 - i; k++) {
+        push({ type: "markSorted", index: k, message: "Sorted" });
+      }
+      didBreak = true;
+      break;
+    }
   }
 
-  for (let i = 0; i < n; i++) {
-    push({ type: "markSorted", index: i, message: "Sorted" });
+  // Bug 4 fix: if the loop ran to completion, index 0 is the only element
+  // not yet marked (the last pass covers index 1). Mark it exactly once here.
+  if (!didBreak) {
+    push({ type: "markSorted", index: 0, message: "Sorted" });
   }
 
   metrics.endTime = performance.now();

@@ -49,10 +49,28 @@ export function EducationalGuide() {
                     </p>
                   </CardHeader>
                   <CardContent>
-                    <div className="rounded-md bg-muted/30 p-3 font-mono text-xs">
-                      {meta.pseudoCode.slice(0, 4).map((line, j) => (
-                        <div key={j} className="text-muted-foreground">
-                          {line}
+                    <div className="rounded-md bg-muted/30 p-3 font-mono text-xs overflow-x-auto">
+                      {meta.pseudoCode.map((line, j) => (
+                        <div key={j} className="flex gap-3">
+                          <span className="text-muted-foreground/40 select-none w-4 text-right shrink-0">
+                            {j + 1}
+                          </span>
+                          <span
+                            className={
+                              line.trimStart().startsWith("function")
+                                ? "text-purple-400"
+                                : line.trimStart().startsWith("if") ||
+                                  line.trimStart().startsWith("while") ||
+                                  line.trimStart().startsWith("for") ||
+                                  line.trimStart().startsWith("else")
+                                  ? "text-blue-400"
+                                  : line.trimStart().startsWith("return")
+                                    ? "text-yellow-400"
+                                    : "text-muted-foreground"
+                            }
+                          >
+                            {line}
+                          </span>
                         </div>
                       ))}
                     </div>

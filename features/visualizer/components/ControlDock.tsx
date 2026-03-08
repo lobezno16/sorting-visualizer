@@ -2,13 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Play, Pause, RotateCcw, StepForward } from "lucide-react";
+import { Play, Pause, RotateCcw, StepForward, Volume2, VolumeX } from "lucide-react";
 import { useVisualizerStore } from "../store/visualizer-store";
 import { useSortRunner } from "../hooks/use-sort-runner";
 
 export function ControlDock() {
   const { run, pause, resume, reset, status } = useSortRunner();
-  const { speed, setSpeed } = useVisualizerStore();
+  const { speed, setSpeed, soundEnabled, setSoundEnabled } = useVisualizerStore();
 
   return (
     <div className="flex flex-wrap items-center gap-4">
@@ -54,6 +54,15 @@ export function ControlDock() {
           <RotateCcw className="h-4 w-4" />
           Reset
         </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setSoundEnabled(!soundEnabled)}
+          aria-label={soundEnabled ? "Mute sound" : "Enable sound"}
+          className={soundEnabled ? "text-primary hover:text-primary/80" : "text-muted-foreground"}
+        >
+          {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+        </Button>
       </div>
 
       <div className="flex items-center gap-3 min-w-[180px]">
@@ -64,7 +73,7 @@ export function ControlDock() {
           min={10}
           max={100}
           step={5}
-          disabled={status === "running"}
+          disabled={false}
           className="flex-1"
           aria-label="Animation speed"
         />

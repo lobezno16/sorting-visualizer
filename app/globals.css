@@ -4,48 +4,68 @@
 
 @layer base {
   :root {
-    --background: 222 47% 6%;
+    --background: 240 10% 4%;
+    /* Very dark, Almost Black background */
     --foreground: 210 40% 98%;
-    --card: 222 47% 8%;
+    /* Glassmorphic cards */
+    --card: 240 10% 8%;
     --card-foreground: 210 40% 98%;
-    --popover: 222 47% 8%;
+    --popover: 240 10% 8%;
     --popover-foreground: 210 40% 98%;
-    --primary: 263 70% 58%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
+
+    /* Cyberpunk Neons */
+    --primary: 280 85% 60%;
+    /* Neon Purple */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 190 90% 50%;
+    /* Cyan */
+    --secondary-foreground: 240 10% 4%;
+    --muted: 240 10% 15%;
     --muted-foreground: 215 20% 65%;
-    --accent: 263 40% 25%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62% 50%;
+    --accent: 330 85% 55%;
+    /* Neon Pink/Magenta */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 85% 60%;
+    /* Neon Red */
     --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 263 70% 58%;
+
+    --border: 280 40% 20%;
+    --input: 240 10% 15%;
+    --ring: 190 90% 50%;
+    /* Cyan rings */
     --radius: 0.75rem;
+
+    /* Extra Cyberpunk Palettes */
+    --success: 140 80% 50%;
+    /* Neon Green */
+    --warning: 45 100% 50%;
+    /* Neon Yellow */
   }
 
   .light {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    /* Muted 'Light' mode for futuristic vibe - bright clean tech */
+    --background: 210 20% 98%;
+    --foreground: 240 10% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 240 10% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 263 70% 50%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
+    --popover-foreground: 240 10% 10%;
+    --primary: 280 75% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 190 90% 40%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 10% 90%;
     --muted-foreground: 215 16% 47%;
-    --accent: 263 40% 92%;
-    --accent-foreground: 222 47% 11%;
-    --destructive: 0 62% 50%;
+    --accent: 330 85% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 80% 50%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 263 70% 50%;
+    --border: 214 32% 85%;
+    --input: 214 32% 85%;
+    --ring: 280 75% 50%;
+    --success: 140 70% 40%;
+    --warning: 40 90% 45%;
   }
 }
 
@@ -53,12 +73,14 @@
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary-foreground;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -68,16 +90,80 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar matched to cyberpunk theme */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-secondary/50 rounded-full;
+  @apply bg-background;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50;
+  @apply bg-primary/40 rounded-full hover:bg-primary/80 transition-colors;
+}
+
+/* 
+  Cyberpunk Grids & Scanning 
+  Add these utility classes to create the futuristic backgrounds
+*/
+.bg-grid-cyber {
+  background-size: 50px 50px;
+  background-image: linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px);
+}
+
+.bg-dot-cyber {
+  background-image: radial-gradient(hsl(var(--primary) / 0.2) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Animated scanning line overlay */
+.scanline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom,
+      transparent,
+      hsl(var(--primary) / 0.1) 50%,
+      transparent);
+  background-size: 100% 4px;
+  animation: scan 10s linear infinite;
+  pointer-events: none;
+  z-index: 50;
+}
+
+@keyframes scan {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 100%;
+  }
+}
+
+/* Glow Utilities */
+.glow-primary {
+  box-shadow: 0 0 15px -3px hsl(var(--primary) / 0.5), 0 0 5px -2px hsl(var(--primary) / 0.3);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 15px -3px hsl(var(--secondary) / 0.6), 0 0 5px -2px hsl(var(--secondary) / 0.4);
+}
+
+.glow-accent {
+  box-shadow: 0 0 15px -3px hsl(var(--accent) / 0.6), 0 0 5px -2px hsl(var(--accent) / 0.4);
+}
+
+.glow-success {
+  box-shadow: 0 0 15px -3px hsl(var(--success) / 0.6), 0 0 5px -2px hsl(var(--success) / 0.4);
+}
+
+.glow-warning {
+  box-shadow: 0 0 15px -3px hsl(var(--warning) / 0.6), 0 0 5px -2px hsl(var(--warning) / 0.4);
 }

@@ -22,15 +22,15 @@ export function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl"
+      className="fixed top-0 left-0 right-0 z-50 border-b border-primary/20 bg-black/50 backdrop-blur-2xl shadow-[0_4px_30px_-10px_rgba(180,90,255,0.2)]"
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a
           href="#hero"
           className="flex items-center gap-2 font-semibold text-foreground"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/20">
-            <BarChart3 className="h-5 w-5 text-primary" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/20 shadow-[0_0_15px_-3px_rgba(180,90,255,0.5)] border border-primary/50">
+            <BarChart3 className="h-5 w-5 text-primary drop-shadow-[0_0_5px_rgba(180,90,255,0.8)]" />
           </div>
           <span className="hidden sm:inline">SortViz</span>
         </a>

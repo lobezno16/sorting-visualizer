@@ -40,6 +40,12 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -59,15 +65,28 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
           "50%": { transform: "translateY(-15px) rotate(2deg)" },
         },
+        pulseGlow: {
+          "0%, 100%": { opacity: "1", filter: "brightness(1)" },
+          "50%": { opacity: "0.85", filter: "brightness(1.5)" },
+        },
+        gridMove: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(50px)" }, // matches background size
+        }
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-out",
         "slide-up": "slideUp 0.5s ease-out",
         float: "float 4s ease-in-out infinite",
+        "pulse-glow": "pulseGlow 2s ease-in-out infinite",
+        "grid-move": "gridMove 3s linear infinite",
       },
       backdropBlur: {
         xs: "2px",
       },
+      backgroundImage: {
+        "cyber-gradient": "linear-gradient(to right bottom, hsl(var(--background)), hsl(var(--background)/0.8), hsl(var(--primary)/0.05))",
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

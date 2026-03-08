@@ -30,6 +30,7 @@ export interface VisualizerState {
   comparisonAlgorithms: AlgorithmId[];
   theme: "dark" | "light";
   reducedMotion: boolean;
+  soundEnabled: boolean;
 }
 
 export interface VisualizerActions {
@@ -52,6 +53,7 @@ export interface VisualizerActions {
   setComparisonAlgorithms: (algorithms: AlgorithmId[]) => void;
   setTheme: (theme: "dark" | "light") => void;
   setReducedMotion: (enabled: boolean) => void;
+  setSoundEnabled: (enabled: boolean) => void;
   reset: () => void;
 }
 
@@ -76,6 +78,7 @@ const createInitialState = (): VisualizerState => ({
   comparisonAlgorithms: [],
   theme: "dark",
   reducedMotion: false,
+  soundEnabled: true,
 });
 
 export const useVisualizerStore = create<VisualizerState & VisualizerActions>(
@@ -123,6 +126,7 @@ export const useVisualizerStore = create<VisualizerState & VisualizerActions>(
     setComparisonAlgorithms: (comparisonAlgorithms) => set({ comparisonAlgorithms }),
     setTheme: (theme) => set({ theme }),
     setReducedMotion: (reducedMotion) => set({ reducedMotion }),
+    setSoundEnabled: (soundEnabled) => set({ soundEnabled }),
     reset: () =>
       set((s) => ({
         ...createInitialState(),
@@ -134,6 +138,7 @@ export const useVisualizerStore = create<VisualizerState & VisualizerActions>(
         teachMode: s.teachMode,
         theme: s.theme,
         reducedMotion: s.reducedMotion,
+        soundEnabled: s.soundEnabled,
       })),
   })
 );
